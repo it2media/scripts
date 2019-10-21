@@ -1,0 +1,21 @@
+@startuml stop_running_container
+start
+#FFFF99:Eingabe-Parameter:
+container_id
+docker_inspect_json
+entry_point_process_name
+publish_port/
+-[#FF0000]-> **docker_inspect_json**;
+:Suche mit jq nach
+State.Status="running"|
+:Suche mit jq nach
+Args[0]="**$entry_point_process_name**"|
+:Suche mit jq nach
+HostConfig.PortBindings.80/tcp[0].HostPort="**$publish_port**"|
+:Ausgabe von
+status_detected
+process_detected
+port_detected/
+if (alle drei true) then
+:docker stop "**$container_id**"|
+@enduml
