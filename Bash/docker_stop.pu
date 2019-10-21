@@ -1,4 +1,4 @@
-@startuml stop_container
+@startuml docker_stop
 start
 :**process_name**
 **publish_port**/
@@ -6,7 +6,7 @@ start
 repeat
 -> container_id;
     :**docker_inspect_json**=$(docker inspect "$**container_id**");
-    :stop_running_container "$**process_name**" "$**publish_port**" "$**container_id**" "$**docker_inspect_json**"|
+    :docker_stop_running "$**process_name**" "$**publish_port**" "$**container_id**" "$**docker_inspect_json**"|
 repeat while (container_id)
 stop
 @enduml

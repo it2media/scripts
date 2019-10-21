@@ -1,4 +1,4 @@
-@startuml stop_running_container
+@startuml docker_stop_running
 start
 #FFFF99:Eingabe-Parameter:
 container_id
