@@ -13,7 +13,7 @@
 docker_stop() {
   for container_id in $(docker container ls -a --no-trunc | awk 'FNR == 1 {next}{print $1}')
   do
-    docker_inspect_json=$(docker inspect "$n")
+    docker_inspect_json=$(docker inspect "$container_id")
     echo "$1 $2 $container_id $docker_inspect_json"
   done
 }
