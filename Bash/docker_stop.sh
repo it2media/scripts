@@ -31,6 +31,10 @@ docker_stop_running() {
   if [[ "$status_detected" == true && "$process_detected" == true && "$port_detected" == true ]]; then
     echo "Stopping container $current_name"
     docker stop "$3"
+    new_name="/$1.Port$2.$3"
+    if [[ "$current_name" != "$new_name" ]]; then
+      docker rename "$3" "$new_name"
+    fi
   fi
 }
 
