@@ -1,4 +1,5 @@
 @startuml docker_registry_tag_master_image
+header docker_registry_tag_master_image
 start
 ->$1=https://registry.it2media.de
 $2=testwebapp
@@ -9,7 +10,7 @@ $3=100;
 ->commit_ids;
 :enumerate(**commit_ids**);
 ->commit_id;
-while (array_contains(**image_tags**,commit_id))
+while (string_array_contains(**image_tags**,commit_id))
   ->false;
   :next(commit_id);
 endwhile
