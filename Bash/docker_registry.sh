@@ -15,7 +15,7 @@
 #   None
 #######################################
 docker_registry_tag_master_image() {
-  
+  .
 }
 
 #######################################
@@ -27,17 +27,23 @@ docker_registry_tag_master_image() {
 #   The array of available tags for this docker image
 #######################################
 docker_registry_gettagslist() {
-
+  .
 }
 
 #######################################
 # Returns true as soon the given string is found in an array of strings
 # Arguments:
-#   $1: The array of strings
-#   $2: The string to search for
+#   $1: The string to search for
+#   $2: The array of strings to search in
 # Returns:
 #   true if the string is found, false if not
 #######################################
 string_array_contains() {
-
+  local searchstr="$1"
+  shift
+  local arr=("$@")
+  for string in "${arr[@]}";
+  do
+    echo "Test: $searchstr $string"
+  done
 }
