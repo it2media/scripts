@@ -1,0 +1,16 @@
+@startuml string_array_contains
+start
+->$1="Array von strings"
+$2="Vergleichsstring";
+:enumerate($1);
+->array_item_string;
+repeat  
+  if ("$array_item_string" == "$2") then (true)
+    :return true;
+    stop
+  else (false)
+  endif
+repeat while(next())
+:return false;
+stop
+@enduml

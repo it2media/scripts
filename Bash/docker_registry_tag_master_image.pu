@@ -1,0 +1,19 @@
+@startuml docker_registry_tag_master_image
+start
+->$1=https://registry.it2media.de
+$2=testwebapp
+$3=100;
+:docker_registry_gettagslist **$1** **$2**|
+->image_tags;
+:git log -"**$3**" --pretty=format:"%H";
+->commit_ids;
+:enumerate(**commit_ids**);
+->commit_id;
+while (array_contains(**image_tags**,commit_id))
+  ->false;
+  :next(commit_id);
+endwhile
+->true;
+:docker tag "$commit_id" master;
+end
+@enduml

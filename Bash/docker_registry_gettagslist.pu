@@ -1,0 +1,12 @@
+@startuml docker_registry_gettagslist
+start
+->$1=https://registry.it2media.de
+$2=testwebapp;
+:tags_list_url="$1/v2/$2/tags/list"/
+->https://registry.it2media.de/v2/testwebapp/tags/list;
+:curl -o tags-list.json "$tags_list_url"/
+->tags-list.json;
+:Get tags array with jq;
+->image_tags;
+end
+@enduml
