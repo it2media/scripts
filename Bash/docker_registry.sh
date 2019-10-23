@@ -35,6 +35,15 @@ docker_registry_tag_master_image() {
     found_commit_in_tags=$(string_array_contains "$commit_id" $image_tags)
     echo "$found_commit_in_tags"
     if [[ "$found_commit_in_tags" == true ]]; then
+      registry=${1#*//}
+      echo "$registry"
+      image_to_pull="$registry/$2:$commit_id"
+      image_tagged_master="$registry/$2:master"
+      echo "$image_to_pull"
+      cat /srv/docker/password.registry.it2media.de | docker login --username it2media --password-stdin "$registry"
+      docker pull "$image_to_pull"
+      docker tag "$image_to_pull" "$image_tagged_master"
+      docker push "$image_tagged_master"
       return 0
     fi
   done
