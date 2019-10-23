@@ -18,16 +18,25 @@ docker_registry_tag_master_image() {
   image_tags=$(docker_registry_gettagslist "$1" "$2")
   commit_ids=$(git log -"$3" --pretty=format:"%H")
 
+  echo "---------------"
   echo "Tags on server:"
+  echo "---------------"
   for tag in $image_tags;
   do
     echo "$tag"
   done
 
-  echo "Commit ids in git log history:"
+  echo "---------------"
+  echo "Processing commit_ids in git log history:"
+  echo "---------------"
   for commit_id in $commit_ids;
   do
     echo "$commit_id"
+    found_commit_in_tags=$(string_array_contains "$commit_id" $image_tags)
+    echo "$found_commit_in_tags"
+    if [[ "$found_commit_in_tags" == true ]]; then
+      return 0
+    fi
   done
 }
 
@@ -63,8 +72,12 @@ string_array_contains() {
   local searchstr="$1"
   shift
   local arr=("$@")
-  for string in "${arr[@]}";
+  for string_from_array in "${arr[@]}";
   do
-    echo "Test: $searchstr $string"
+    if [[ "$searchstr" ==  "$string_from_array" ]]; then
+      echo true
+      return 0
+    fi
   done
+  echo false
 }
