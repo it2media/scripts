@@ -33,7 +33,8 @@ docker_stop_running() {
     docker stop "$3"
     new_name="/$1.Port$2.$3"
     if [[ "$current_name" != "$new_name" ]]; then
-      docker rename "$3" "$new_name"
+      echo "Renaming $current_name to $new_name"
+      docker rename "$current_name" "$new_name"
     fi
   fi
 }
