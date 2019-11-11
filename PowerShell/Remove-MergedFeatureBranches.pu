@@ -1,0 +1,10 @@
+@startuml cleanup_remote_feature_branches
+start
+:Get merged remote branches;
+:git branch -r --merged develop;
+:Delete merged remote branches;
+:git push origin --delete SNWX-163;
+:Lokales remote aufräumen;
+:git fetch --prune;
+stop
+@enduml
