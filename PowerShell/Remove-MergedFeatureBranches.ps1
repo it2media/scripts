@@ -1,10 +1,13 @@
-param(
+﻿param(
 [string]$gitFolder)
+$OutputEncoding = New-Object -typename System.Text.UTF8Encoding
+[Console]::OutputEncoding = New-Object -typename System.Text.UTF8Encoding
 $currentDir = Get-Location
 cd $gitFolder
 Write-Host "git branch -r --merged develop"
 git branch -r --merged develop
 Write-Host "Deleting:"
+git branch -r --merged develop | Out-File -FilePath "tools/branches.txt"
 $mergedRemoteBranches = git branch -r --merged develop
 foreach($mergedRemoteBranch in $mergedRemoteBranches) {
     $remoteBranch = $mergedRemoteBranch.Trim()
