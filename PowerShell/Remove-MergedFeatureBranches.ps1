@@ -2,6 +2,9 @@ param(
 [string]$gitFolder)
 $currentDir = Get-Location
 cd $gitFolder
+Write-Host "git branch -r --merged develop"
+git branch -r --merged develop
+Write-Host "Deleting:"
 $mergedRemoteBranches = git branch -r --merged develop
 foreach($mergedRemoteBranch in $mergedRemoteBranches) {
     $remoteBranch = $mergedRemoteBranch.Trim()
