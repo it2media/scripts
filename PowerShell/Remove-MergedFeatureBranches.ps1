@@ -6,8 +6,8 @@ $currentDir = Get-Location
 cd $gitFolder
 Write-Host "git branch -r --merged develop"
 git branch -r --merged develop
-Write-Host "Deleting:"
-git branch -r --merged develop | Out-File -FilePath "tools/branches.txt"
+Write-Host "Deleting */feature/ branches:"
+git branch -r --merged develop | Out-File -FilePath "tools/deleted-branches.txt"
 $mergedRemoteBranches = git branch -r --merged develop
 foreach($mergedRemoteBranch in $mergedRemoteBranches) {
     $remoteBranch = $mergedRemoteBranch.Trim()
