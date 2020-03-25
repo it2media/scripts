@@ -40,7 +40,7 @@ docker_registry_tag_master_image() {
       image_to_pull="$registry/$2:$commit_id"
       image_tagged_master="$registry/$2:master"
       echo "$image_to_pull"
-      cat /srv/docker/password.registry.it2media.de | docker login --username it2media --password-stdin "$registry"
+      cat /mnt/salesdatacore/ContainerRegistry/login/it2media | docker login --username it2media --password-stdin "$registry"
       docker pull "$image_to_pull"
       docker tag "$image_to_pull" "$image_tagged_master"
       docker push "$image_tagged_master"
@@ -63,7 +63,7 @@ docker_registry_gettagslist() {
 
   #https://stackoverflow.com/questions/46540047/passing-password-to-curl-on-command-line/53282815#53282815
   #Do not output result of "curl" with > /dev/null 2>&1 as we only need the tags information itself for further processing. https://www.linuxquestions.org/questions/linux-newbie-8/what-is-the-@echo-off-alternative-for-a-shell-script-780842/
-  cat /srv/docker/password.registry.it2media.de | sed -e "s/^/-u it2media:/" | curl -o tags-list.json "$tags_list_url" -K- > /dev/null 2>&1
+  cat /mnt/salesdatacore/ContainerRegistry/login/it2media | sed -e "s/^/-u it2media:/" | curl -o tags-list.json "$tags_list_url" -K- > /dev/null 2>&1
 
   #read json, pipe it to jq with -r (raw output), read tags and unwrap the array with .[] to remove the separating comma
   cat tags-list.json | jq -r '.tags | .[]'
