@@ -12,6 +12,7 @@
 #######################################
 docker_is_running() {
   service=$(echo "$2" | jq -r '.[0] | .Config.Labels["com.docker.compose.service"]')
+  echo "$service"
   if [[ "$service" == "$1" ]]; then
       has_state_running=$(echo "$2" | jq -r '.[0] | .State.Running')
       status=$(echo "$2" | jq -r '.[0] | .State.Status')
