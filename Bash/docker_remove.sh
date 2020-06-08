@@ -46,7 +46,7 @@ docker_exists_running() {
 #   None
 #######################################
 docker_remove_stopped() {
-  
+  echo "Not implemented yet"
 }
 
 #######################################
