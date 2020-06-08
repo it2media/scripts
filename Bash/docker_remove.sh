@@ -19,10 +19,10 @@ docker_is_running() {
       status=$(echo "$2" | jq -r '.[0] | .State.Status')
       if [[ "$has_state_running" == true && status == "running" ]]; then
         # echo "Found running container for $1"
-        return true
+        return 0 # 0 is success exit code so equivalent to true
       fi
   fi
-  return false
+  return 1 # every other exit code than 0 is an error code (false)
 }
 
 #######################################
