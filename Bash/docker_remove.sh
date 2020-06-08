@@ -13,12 +13,9 @@
 docker_is_running() {
   service=$(echo "$2" | jq -r '.[0] | .Config.Labels["com.docker.compose.service"]')
   if [[ "$service" == "$1" ]]; then
-    # "Found! Let's check if this it is a running container with this id:"
-    echo "$2" | jq -r '.[0] | .Id'
       has_state_running=$(echo "$2" | jq -r '.[0] | .State.Running')
       status=$(echo "$2" | jq -r '.[0] | .State.Status')
-      if [[ "$has_state_running" == true && status == "running" ]]; then
-        # echo "Found running container for $1"
+      if [[ "$has_state_running" == true && status == "running" ]]; then        
         return 0 # 0 is success exit code so equivalent to true
       fi
   fi
