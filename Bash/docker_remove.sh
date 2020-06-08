@@ -17,7 +17,7 @@ docker_is_running() {
     echo "$2" | jq -r '.[0] | .Id'
       has_state_running=$(echo "$2" | jq -r '.[0] | .State.Running')
       status=$(echo "$2" | jq -r '.[0] | .State.Status')
-      if [[ "$has_state_running" == true && status == "running"]]; then
+      if [[ "$has_state_running" == true && status == "running" ]]; then
         echo "Found running container for $1"
       fi
   fi
