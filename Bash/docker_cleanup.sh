@@ -157,4 +157,5 @@ docker_cleanup() {
     docker_remove_stopped "$docker_inspect_json" "$1"
     echo "<<<"
   done
+  return 0
 }
