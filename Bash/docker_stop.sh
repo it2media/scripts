@@ -29,7 +29,8 @@ docker_stop_running() {
   echo "process_detected: $process_detected"
   echo "port_detected: $port_detected"
   if [[ "$status_detected" == true && "$process_detected" == true && "$port_detected" == true ]]; then
-    echo "Stopping container $current_name"
+    local image=$(echo "$4" | jq -r '.[0] | .Image')
+    echo "Stopping container $current_name based on image $image"    
     docker stop "$3"
     new_name="/$1.Port$2.$3"
     if [[ "$current_name" != "$new_name" ]]; then
