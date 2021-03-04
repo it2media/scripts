@@ -1,0 +1,15 @@
+@startuml docker_cleanup
+start
+:**$1 = timespan in h**/
+:(1.) Read all container ids from the host system:;
+:for **container_id** in $(docker container ls -a --no-trunc | awk 'FNR == 1 {next}{print $1}');
+:(2.) Iterate through all container_ids;
+repeat
+-> container_id;
+    :(3.) Read the docker inspect JSON for this **container_id:**;
+    :**docker_inspect_json**=$(docker inspect "$**container_id**");
+    :(4.) Call **docker_remove_stopped** for the single container with the **docker_inspect_json** and the **container_id**; 
+    :docker_remove_stopped "$docker_inspect_json" "$1"|
+repeat while (container_id)
+stop
+@enduml
